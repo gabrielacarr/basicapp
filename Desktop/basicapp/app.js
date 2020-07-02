@@ -18,41 +18,31 @@ db.on('error', (err) => {
 // Init app
 const app = express();
 
+// Bring Models
+let Article = require('./models/article');
+
 // Load View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // Home Route 
 // Displays articles
-app.get('/', (req, res) => { // get request to home page
-        let articles = [ // static array of objects passed through view that loops through it
-            {
-                id: 1,
-                title: 'Article One',
-                author: 'John Doe',
-                body: 'This is article one'
-        
-            },
-            {
-                id: 2,
-                title: 'Article Two',
-                author: 'John Doe',
-                body: 'This is article two'
-        
-            },
-            {
-                id: 3,
-                title: 'Article Three',
-                author: 'John Doe',
-                body: 'This is article three'
-        
-            }
-        ]
-        res.render('index', {
+// get request to home page
+// passing functions to query
+app.get('/', (req, res) => { 
+    Article.find({}, (err, articles) => {
+        if(err){
+            console.log(err);
+        } else {
+            res.render('index', {
             title: 'Articles',
             articles: articles
         });
+        }
+    });
 }); 
+// Results should reflect from the database 
+// Article Three relfects on local
 
 // Add Route
 app.get('/articles/add', (req, res) => {
