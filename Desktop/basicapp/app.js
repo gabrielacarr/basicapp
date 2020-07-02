@@ -1,6 +1,9 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+
+
 
 mongoose.connect('mongodb://localhost/nodek');
 let db = mongoose.connection;
@@ -24,6 +27,13 @@ let Article = require('./models/article');
 // Load View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+// Body Parser Middleware
+// https://github.com/expressjs/body-parser
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+app.use(bodyParser.json());
 
 // Home Route 
 // Displays articles
@@ -53,12 +63,8 @@ app.get('/articles/add', (req, res) => {
 
 // Add Submit POST Route
 app.post('/articles/add', (req, res) => {
-    console.log('Submitted');
-    return;
-    // Does not reflect on Server side
-    // Reflects 'Submitted'
-    // Check if function works
-    // For submission to DB
+   let article = new Article();
+   article.title = req.body.title;
 });
 
 // Start Server
