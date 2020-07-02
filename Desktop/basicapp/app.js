@@ -65,6 +65,18 @@ app.get('/articles/add', (req, res) => {
 app.post('/articles/add', (req, res) => {
    let article = new Article();
    article.title = req.body.title;
+   article.author = req.body.author;
+   article.body = req.body.body;
+   // Check Error
+   article.save((err) => {
+    if(err){
+        console.log(err);
+        return;
+    } else {
+       // Redirect to index page
+       res.redirect('/');
+    }
+   });
 });
 
 // Start Server
