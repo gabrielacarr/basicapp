@@ -16,4 +16,5 @@ let articleSchema = mongoose.Schema({ // define fields
     },
 })
 
+
 let Article = module.exports = mongoose.model('Article', articleSchema);
