@@ -49,7 +49,17 @@ app.get('/articles/add', (req, res) => {
     res.render('add_article', { // render another route
         title: 'Add Article'
     });
-})
+});
+
+// Add Submit POST Route
+app.post('/articles/add', (req, res) => {
+    console.log('Submitted');
+    return;
+    // Does not reflect on Server side
+    // Reflects 'Submitted'
+    // Check if function works
+    // For submission to DB
+});
 
 // Start Server
 app.listen(3001, () => {  // listen, takes the port and call back
